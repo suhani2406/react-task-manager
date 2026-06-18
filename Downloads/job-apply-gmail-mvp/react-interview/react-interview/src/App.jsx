@@ -47,9 +47,17 @@ function App() {
             placeholder="Enter Task"
             value={task}
             onChange={(e) => setTask(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") addTask();
+            }}
           />
 
-          <button onClick={addTask}>Add Task</button>
+          <button
+            onClick={addTask}
+            disabled={!task.trim()}
+          >
+            Add Task
+          </button>
         </div>
 
         <input
@@ -60,7 +68,10 @@ function App() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <h3>Total Tasks: {tasks.length}</h3>
+        <div className="summary">
+          <h3>Total Tasks</h3>
+          <span>{tasks.length}</span>
+        </div>
 
         <div className="task-list">
           {filteredTasks.length > 0 ? (
